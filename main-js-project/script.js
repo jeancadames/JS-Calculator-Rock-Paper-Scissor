@@ -21,14 +21,14 @@ numbersBtns.forEach((numBtn) => {
     numBtn.addEventListener('click', ()=> {
         //if there's already a . in the display, do not add another one
         if((numBtn.innerText == '.') && displayValue.innerText.includes('.')) return;
-        if(displayValue.innerText.length > 9) return;
+        else if(displayValue.innerText.length > 9) return;
         //if there's no operator selected yet, that means that this is the first number, so I assign all the inputs to the first number
-        if(!operator){
+        else if(!operator){
             displayValue.innerText += numBtn.innerText;
             firstNumber = displayValue.innerText;
         }
         //if there's an operator, that means that the first number was already selected and the last number left is the second one, so all that the user types goes to the second number
-        if(operator){
+        else if(operator){
             displayValue.innerText += numBtn.innerText;
             secondNumber = displayValue.innerText;
         }
@@ -38,6 +38,7 @@ numbersBtns.forEach((numBtn) => {
 window.addEventListener('keydown', (e)=> {
     if(e.key >= 0 && e.key <= 9 && !operator || e.key == '.'){
         if((e.key == '.') && displayValue.innerText.includes('.')) return;
+        else if(displayValue.innerText.length > 9) return;
         displayValue.innerText += e.key;
         firstNumber = displayValue.innerText;
     }
@@ -69,21 +70,21 @@ window.addEventListener('keydown', (e)=> {
 operationalBtns.forEach(optBtn => {
     window.addEventListener('keydown',(e) => {
         if(e.key == optBtn.innerText){
+            displayResult();
             operator = e.key;
             prevValue.innerText = `${firstNumber}${operator}`
             displayValue.innerText = ''
             removeSelectedClass();
             optBtn.classList.add('selected');
-            displayResult();
         }
     });
     optBtn.addEventListener('click', () => {
+        displayResult();
         operator = optBtn.innerText;
         prevValue.innerText = `${firstNumber}${operator}`
         displayValue.innerText = ''
         removeSelectedClass();
         optBtn.classList.add('selected');
-        displayResult()
     });
 
 });
